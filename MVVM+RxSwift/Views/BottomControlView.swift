@@ -23,15 +23,9 @@ class BottomControlView: UIView {
         baseStackView.axis = .horizontal
         baseStackView.distribution = .fillEqually
         baseStackView.spacing = 10
-        baseStackView.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(baseStackView)
-        
-        [baseStackView.topAnchor.constraint(equalTo: topAnchor),
-         baseStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-         baseStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
-         baseStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
-        ].forEach { $0.isActive = true }
+        baseStackView.anchor(top:topAnchor,bottom:bottomAnchor,left: leftAnchor,right: rightAnchor,leftPadding: 10,rightPadding: 10)
         
     }
     
@@ -40,12 +34,13 @@ class BottomControlView: UIView {
     }
     
 }
-//これを↓することによって再利用のボタンを複数作成する事ができる↑みてね
+
 /*
  let button: UIButton = {
  
  }() みたいなのを複数書かなくてもいい
  */
+//これを↓することによって再利用のボタンを複数作成する事ができる↑みてね
 class BottomButtonView: UIView {
     //ここのviewにボタンを設置
     var button: BottomButton?
@@ -55,7 +50,6 @@ class BottomButtonView: UIView {
         
         button = BottomButton(type: .custom)
         button?.setImage(UIImage(named: imageName)?.resize(size: .init(width: width * 0.4, height: width * 0.4)), for: .normal)
-        button?.translatesAutoresizingMaskIntoConstraints = false
         button?.backgroundColor = .white
         button?.layer.cornerRadius = width / 2
         
@@ -66,11 +60,8 @@ class BottomButtonView: UIView {
         
         addSubview(button!)
         
+        button?.anchor(centerY:centerYAnchor,centerX: centerXAnchor,width: width,height: width)
         
-        [button?.centerYAnchor.constraint(equalTo: centerYAnchor),
-        button?.centerXAnchor.constraint(equalTo: centerXAnchor),
-        button?.widthAnchor.constraint(equalToConstant: width),
-        button?.heightAnchor.constraint(equalToConstant: width)].forEach { $0?.isActive = true }
     }
     
     required init?(coder: NSCoder) {

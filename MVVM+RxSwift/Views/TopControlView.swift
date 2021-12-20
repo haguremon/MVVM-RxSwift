@@ -40,21 +40,21 @@ class TopControlView: UIView {
         baseStackView.axis = .horizontal
         baseStackView.distribution = .fillEqually
         baseStackView.spacing = 43
-        baseStackView.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(baseStackView)
-        
-        [baseStackView.topAnchor.constraint(equalTo: topAnchor),
-         baseStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-         baseStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 40),
-         baseStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -40),
-        ].forEach { $0.isActive = true }
+        baseStackView.anchor(top:topAnchor,bottom:bottomAnchor,left: leftAnchor,right: rightAnchor,leftPadding: 40,rightPadding: 40)
+//拡張したお陰でスッキリと制約
+//        [baseStackView.topAnchor.constraint(equalTo: topAnchor),
+//         baseStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+//         baseStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 40),
+//         baseStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -40),
+//        ].forEach { $0.isActive = true }
         
         tinderButton.isSelected = true
     }
     
     private func setupBindings() {
-        
+        //rxは川のように常に流れてるイメージで、その時に何かあった時にそれぞれによって処理をする
         tinderButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] _ in
@@ -63,7 +63,9 @@ class TopControlView: UIView {
                 //選択された時に↓の関数を実行
                 self.handleSelectedButton(selectedBtton: self.tinderButton)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: disposeBag) //常に流れてるに入らなくなったら開放する必要がある
+        
+        //.asDriver() .driveを設定することでエラーなしでもできるらしい
         
         goodButton.rx.tap
             .asDriver()
