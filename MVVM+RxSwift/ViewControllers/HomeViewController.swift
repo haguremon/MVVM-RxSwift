@@ -16,28 +16,19 @@ class HomeViewController: UIViewController {
         
         let topControlView = TopControlView()
         
-        let view2 = UIView()
-        view2.backgroundColor = .blue
+        let cardView = CardView()
         
         let bottomControlView = BottomControlView()
         
-        let stackView = UIStackView(arrangedSubviews: [topControlView, view2, bottomControlView])
+        let stackView = UIStackView(arrangedSubviews: [topControlView, cardView, bottomControlView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         
         self.view.addSubview(stackView)
         
-        [
-            topControlView.heightAnchor.constraint(equalToConstant: 100),
-            bottomControlView.heightAnchor.constraint(equalToConstant: 100),
-            
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            stackView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            stackView.rightAnchor.constraint(equalTo: view.rightAnchor)]
-            .forEach { $0.isActive = true }
-            //forEach { $0.isActive = true }すると便利やな使おう
+        topControlView.anchor(height:100)
+        bottomControlView.anchor(height:100)
+        stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, bottom:  view.safeAreaLayoutGuide.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor)
     }
-
-
+    
 }

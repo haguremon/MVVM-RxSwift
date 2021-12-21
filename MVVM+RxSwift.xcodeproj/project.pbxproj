@@ -19,6 +19,8 @@
 		CF863518276F8136005AFB04 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = CF863517276F8136005AFB04 /* RxRelay */; };
 		CF86351A276F8136005AFB04 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CF863519276F8136005AFB04 /* RxSwift */; };
 		CF86351C2770333F005AFB04 /* UIView-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF86351B2770333F005AFB04 /* UIView-Extension.swift */; };
+		CFF1EA2727719698000A77DD /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA2627719698000A77DD /* CardView.swift */; };
+		CFF1EA292771A8BD000A77DD /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA282771A8BD000A77DD /* UIColor-Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,8 @@
 		CF863510276DD336005AFB04 /* BottomControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomControlView.swift; sourceTree = "<group>"; };
 		CF863512276F80FA005AFB04 /* TopControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopControlView.swift; sourceTree = "<group>"; };
 		CF86351B2770333F005AFB04 /* UIView-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView-Extension.swift"; sourceTree = "<group>"; };
+		CFF1EA2627719698000A77DD /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		CFF1EA282771A8BD000A77DD /* UIColor-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				CF86350D276DD1B4005AFB04 /* Extensions */,
-				CF86350C276DD194005AFB04 /* ViewControllers */,
 				CF86350B276DD17E005AFB04 /* Views */,
+				CF86350C276DD194005AFB04 /* ViewControllers */,
 				CF8634F7276DC9AD005AFB04 /* AppDelegate.swift */,
 				CF8634F9276DC9AD005AFB04 /* SceneDelegate.swift */,
 				CF863500276DC9AF005AFB04 /* Assets.xcassets */,
@@ -83,8 +87,9 @@
 		CF86350B276DD17E005AFB04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CF863510276DD336005AFB04 /* BottomControlView.swift */,
 				CF863512276F80FA005AFB04 /* TopControlView.swift */,
+				CFF1EA2627719698000A77DD /* CardView.swift */,
+				CF863510276DD336005AFB04 /* BottomControlView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -100,6 +105,7 @@
 		CF86350D276DD1B4005AFB04 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				CFF1EA282771A8BD000A77DD /* UIColor-Extension.swift */,
 				CF86350E276DD2D6005AFB04 /* UIImage-Extension.swift */,
 				CF86351B2770333F005AFB04 /* UIView-Extension.swift */,
 			);
@@ -188,8 +194,10 @@
 				CF863511276DD336005AFB04 /* BottomControlView.swift in Sources */,
 				CF8634FC276DC9AD005AFB04 /* HomeViewController.swift in Sources */,
 				CF86351C2770333F005AFB04 /* UIView-Extension.swift in Sources */,
+				CFF1EA292771A8BD000A77DD /* UIColor-Extension.swift in Sources */,
 				CF86350F276DD2D6005AFB04 /* UIImage-Extension.swift in Sources */,
 				CF8634F8276DC9AD005AFB04 /* AppDelegate.swift in Sources */,
+				CFF1EA2727719698000A77DD /* CardView.swift in Sources */,
 				CF8634FA276DC9AD005AFB04 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

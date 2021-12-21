@@ -6,7 +6,7 @@
 //
 
 import UIKit
-//viewの大きさによってUIImageの大きさをresizeするextensionで関数
+//UIImageの大きさをresizeするextensionで関数
 extension UIImage {
     
     func resize(size _size: CGSize) -> UIImage? {

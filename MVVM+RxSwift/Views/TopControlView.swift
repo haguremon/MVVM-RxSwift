@@ -18,7 +18,7 @@ class TopControlView: UIView {
     let goodButton = createTopButton(imageName: "good-selected", unselectedImage: "good-unselected")
     let commentButton = createTopButton(imageName: "comment-selected", unselectedImage: "comment-unselected")
     let profileButton = createTopButton(imageName: "profile-selected", unselectedImage: "profile-unselected")
-    //インスタンスしなくても使えるようにする
+    //インスタンスしなくても使えるようにする　staticがあるからね
     static private func createTopButton(imageName: String, unselectedImage: String) -> UIButton {
         let button = UIButton(type: .custom)
        //選択されてる時のイメージ for: .selected
@@ -63,7 +63,7 @@ class TopControlView: UIView {
                 //選択された時に↓の関数を実行
                 self.handleSelectedButton(selectedBtton: self.tinderButton)
             })
-            .disposed(by: disposeBag) //常に流れてるに入らなくなったら開放する必要がある
+            .disposed(by: disposeBag) //常に流れてる不要になったら開放する必要がある
         
         //.asDriver() .driveを設定することでエラーなしでもできるらしい
         
