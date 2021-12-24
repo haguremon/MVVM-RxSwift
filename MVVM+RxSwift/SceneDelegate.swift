@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //MRAK: - NO-STORYBOARDで最初の画面の設定
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = HomeViewController()
+        window?.rootViewController = RegisterViewController()
         window?.makeKeyAndVisible()
     }
 
