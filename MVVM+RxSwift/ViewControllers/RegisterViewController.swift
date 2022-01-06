@@ -6,48 +6,110 @@
 //
 
 import UIKit
+import RxSwift
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
+    
+    private let disposeBag = DisposeBag() //Rxは常に流れてるのでDisposeBagを使うことによって閉じる事ができてメモリリークを防ぐ
+    
+    private let titleLabel = RegisterTitleLabel()
     private let nameTextField = RegisterTextField(placeHolder: "名前")
     private let emailTextField = RegisterTextField(placeHolder: "email")
     private let passwordTextField = RegisterTextField(placeHolder: "password")
     
-    let registerButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("登録", for: .normal)
-        button.backgroundColor = .red
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 10
-        return button
-    }()
+    private let registerButton = RegisterButton()
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        setupGradientLayer()
+        setupLayout()
+        setupBindins()
+       
+    }
+    
+    //Gradientの背景を生み出す事ができる
+    private func setupGradientLayer() {
+        let layer = CAGradientLayer()
+        let startColor = UIColor.rgb(red: 227, green: 48, blue: 78).cgColor
+        let endColor = UIColor.rgb(red: 245, green: 208, blue: 108).cgColor
         
-        view.backgroundColor = .systemBlue
+        layer.colors = [startColor, endColor]
+        layer.locations = [0.0, 1.3]
+        layer.frame = view.bounds
+        view.layer.addSublayer(layer)
+    }
+    
+    private func setupLayout() {
         
+        passwordTextField.isSecureTextEntry = true
         let baseStackView = UIStackView(arrangedSubviews: [nameTextField, emailTextField, passwordTextField, registerButton])
         baseStackView.axis = .vertical
         baseStackView.distribution = .fillEqually
         baseStackView.spacing = 20
         
         view.addSubview(baseStackView)
+        view.addSubview(titleLabel)
         
         nameTextField.anchor(height: 45) //ここで幅を設定することによって　上の baseStackView.distribution = .fillEquallyによって均等になる
         baseStackView.anchor(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, leftPadding: 40, rightPadding: 40)
+        titleLabel.anchor(bottom: baseStackView.topAnchor, centerX: view.centerXAnchor, bottomPadding: 20)
     }
     
+    private func setupBindins() {
+           
+           nameTextField.rx.text
+               .asDriver()
+               .drive { [weak self] text in
+                   //[weak self]を使うことによって自身に参照するときに循環参照を防ぐ
+                   // textの情報ハンドル
+               
+               print(text)
+               }.disposed(by: disposeBag)
+               
+           emailTextField.rx.text
+               .asDriver()
+               .drive { [weak self] text in
+                   // textの情報ハンドル
+                   print(text)
+               }.disposed(by: disposeBag)
+               
+           passwordTextField.rx.text
+               .asDriver()
+               .drive { [weak self] text in
+                   // textの情報ハンドル
+                   print(text)
+               }.disposed(by: disposeBag)
+               
+           registerButton.rx.tap
+               .asDriver()
+               .drive { [weak self] _ in
+                   // 登録時の処理
+                   self?.createUserToFireAuth()
+               }.disposed(by: disposeBag)
+           
+       }
+    //いつも通りの登録の処理
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    private func createUserToFireAuth() {
+        guard let email = emailTextField.text else { return }
+        guard let passwoard = passwordTextField.text else { return }
+        
+        Auth.auth().createUser(withEmail: email, password: passwoard) { (auth, error) in
+            if let error = error {
+                print("auth情報の保存に失敗: ", error)
+                return
+            }
+            
+            guard let uid = auth?.user.uid else { return }
+            print("auth情報の保存に成功: ", uid)
+        }
+        
+    }
+    
+ 
     
 }
