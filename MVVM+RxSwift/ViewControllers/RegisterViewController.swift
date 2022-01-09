@@ -12,6 +12,7 @@ import FirebaseAuth
 class RegisterViewController: UIViewController {
     
     private let disposeBag = DisposeBag() //Rxは常に流れてるのでDisposeBagを使うことによって閉じる事ができてメモリリークを防ぐ
+    let viewModel = RegiserViewModel()
     
     private let titleLabel = RegisterTitleLabel()
     private let nameTextField = RegisterTextField(placeHolder: "名前")
@@ -66,22 +67,23 @@ class RegisterViewController: UIViewController {
                .drive { [weak self] text in
                    //[weak self]を使うことによって自身に参照するときに循環参照を防ぐ
                    // textの情報ハンドル
+                  //self?.viewModel.nameTextOutput.onNext(text ?? "")
+                   self?.viewModel.nameTextInput.onNext(text ?? "")
                
-               print(text)
                }.disposed(by: disposeBag)
                
            emailTextField.rx.text
                .asDriver()
                .drive { [weak self] text in
                    // textの情報ハンドル
-                   print(text)
+                   self?.viewModel.emailTextInput.onNext(text ?? "")
                }.disposed(by: disposeBag)
                
            passwordTextField.rx.text
                .asDriver()
                .drive { [weak self] text in
                    // textの情報ハンドル
-                   print(text)
+                   self?.viewModel.passwordTextInput.onNext(text ?? "")
                }.disposed(by: disposeBag)
                
            registerButton.rx.tap
@@ -97,16 +99,11 @@ class RegisterViewController: UIViewController {
     private func createUserToFireAuth() {
         guard let email = emailTextField.text else { return }
         guard let passwoard = passwordTextField.text else { return }
+        guard let name = nameTextField.text else { return }
+       
+        let authCredentials = AuthCredentials(email: email, password: passwoard, name: name)
         
-        Auth.auth().createUser(withEmail: email, password: passwoard) { (auth, error) in
-            if let error = error {
-                print("auth情報の保存に失敗: ", error)
-                return
-            }
-            
-            guard let uid = auth?.user.uid else { return }
-            print("auth情報の保存に成功: ", uid)
-        }
+        AuthService.registerUser(withCredential: authCredentials)
         
     }
     

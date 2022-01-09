@@ -25,6 +25,9 @@
 		CFBA782C278716CD00E1687E /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CFBA782B278716CD00E1687E /* FirebaseStorage */; };
 		CFBA782E2787173700E1687E /* RegisterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBA782D2787173700E1687E /* RegisterButton.swift */; };
 		CFBA78302787175100E1687E /* RegisterTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBA782F2787175100E1687E /* RegisterTitleLabel.swift */; };
+		CFBA7862278ACD7A00E1687E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBA7861278ACD7A00E1687E /* Constants.swift */; };
+		CFBA7866278ACE2500E1687E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBA7865278ACE2500E1687E /* AuthService.swift */; };
+		CFBA7869278AD4DE00E1687E /* RegiserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBA7868278AD4DE00E1687E /* RegiserViewModel.swift */; };
 		CFF1EA2727719698000A77DD /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA2627719698000A77DD /* CardView.swift */; };
 		CFF1EA292771A8BD000A77DD /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA282771A8BD000A77DD /* UIColor-Extension.swift */; };
 		CFF1EA2B2774DD1F000A77DD /* CardInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA2A2774DD1F000A77DD /* CardInfoLabel.swift */; };
@@ -49,6 +52,9 @@
 		CF86351B2770333F005AFB04 /* UIView-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView-Extension.swift"; sourceTree = "<group>"; };
 		CFBA782D2787173700E1687E /* RegisterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterButton.swift; sourceTree = "<group>"; };
 		CFBA782F2787175100E1687E /* RegisterTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTitleLabel.swift; sourceTree = "<group>"; };
+		CFBA7861278ACD7A00E1687E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		CFBA7865278ACE2500E1687E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		CFBA7868278AD4DE00E1687E /* RegiserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiserViewModel.swift; sourceTree = "<group>"; };
 		CFF1EA2627719698000A77DD /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CFF1EA282771A8BD000A77DD /* UIColor-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		CFF1EA2A2774DD1F000A77DD /* CardInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInfoLabel.swift; sourceTree = "<group>"; };
@@ -96,8 +102,11 @@
 		CF8634F6276DC9AD005AFB04 /* MVVM+RxSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CFBA7864278ACE0F00E1687E /* API */,
+				CFBA7860278ACD2900E1687E /* Unit */,
 				CFF1EA3D27759FC0000A77DD /* GoogleService-Info.plist */,
 				CF86350D276DD1B4005AFB04 /* Extensions */,
+				CFBA7867278AD48000E1687E /* ViewModel */,
 				CF86350B276DD17E005AFB04 /* Views */,
 				CF86350C276DD194005AFB04 /* ViewControllers */,
 				CF8634F7276DC9AD005AFB04 /* AppDelegate.swift */,
@@ -136,6 +145,30 @@
 				CFF1EA2C2774E311000A77DD /* UIButton-Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CFBA7860278ACD2900E1687E /* Unit */ = {
+			isa = PBXGroup;
+			children = (
+				CFBA7861278ACD7A00E1687E /* Constants.swift */,
+			);
+			path = Unit;
+			sourceTree = "<group>";
+		};
+		CFBA7864278ACE0F00E1687E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				CFBA7865278ACE2500E1687E /* AuthService.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		CFBA7867278AD48000E1687E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CFBA7868278AD4DE00E1687E /* RegiserViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		CFF1EA482775A2B6000A77DD /* Home */ = {
@@ -245,7 +278,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF863513276F80FA005AFB04 /* TopControlView.swift in Sources */,
+				CFBA7862278ACD7A00E1687E /* Constants.swift in Sources */,
+				CFBA7869278AD4DE00E1687E /* RegiserViewModel.swift in Sources */,
 				CF863511276DD336005AFB04 /* BottomControlView.swift in Sources */,
+				CFBA7866278ACE2500E1687E /* AuthService.swift in Sources */,
 				CFF1EA2B2774DD1F000A77DD /* CardInfoLabel.swift in Sources */,
 				CF8634FC276DC9AD005AFB04 /* HomeViewController.swift in Sources */,
 				CF86351C2770333F005AFB04 /* UIView-Extension.swift in Sources */,
