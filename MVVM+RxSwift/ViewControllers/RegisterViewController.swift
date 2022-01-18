@@ -25,11 +25,11 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         setupGradientLayer()
         setupLayout()
         setupBindins()
-       
+        
     }
     
     //Gradientの背景を生み出す事ができる
@@ -47,6 +47,8 @@ class RegisterViewController: UIViewController {
     private func setupLayout() {
         
         passwordTextField.isSecureTextEntry = true
+        passwordTextField.textContentType = .newPassword
+        
         let baseStackView = UIStackView(arrangedSubviews: [nameTextField, emailTextField, passwordTextField, registerButton])
         baseStackView.axis = .vertical
         baseStackView.distribution = .fillEqually
@@ -61,52 +63,67 @@ class RegisterViewController: UIViewController {
     }
     
     private func setupBindins() {
-           
-           nameTextField.rx.text
-               .asDriver()
-               .drive { [weak self] text in
-                   //[weak self]を使うことによって自身に参照するときに循環参照を防ぐ
-                   // textの情報ハンドル
-                  //self?.viewModel.nameTextOutput.onNext(text ?? "")
-                   self?.viewModel.nameTextInput.onNext(text ?? "")
-               
-               }.disposed(by: disposeBag)
-               
-           emailTextField.rx.text
-               .asDriver()
-               .drive { [weak self] text in
-                   // textの情報ハンドル
-                   self?.viewModel.emailTextInput.onNext(text ?? "")
-               }.disposed(by: disposeBag)
-               
-           passwordTextField.rx.text
-               .asDriver()
-               .drive { [weak self] text in
-                   // textの情報ハンドル
-                   self?.viewModel.passwordTextInput.onNext(text ?? "")
-               }.disposed(by: disposeBag)
-               
-           registerButton.rx.tap
-               .asDriver()
-               .drive { [weak self] _ in
-                   // 登録時の処理
-                   self?.createUserToFireAuth()
-               }.disposed(by: disposeBag)
-           
-       }
+        //        nameTextField.rx.value.subscribe(onNext: <#T##((String?) -> Void)?##((String?) -> Void)?##(String?) -> Void#>, onError: <#T##((Error) -> Void)?##((Error) -> Void)?##(Error) -> Void#>, onCompleted: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>, onDisposed: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
+        nameTextField.rx.text
+            .asDriver()
+            .drive { [weak self] text in
+                //[weak self]を使うことによって自身に参照するときに循環参照を防ぐ
+                // textの情報ハンドル
+                //self?.viewModel.nameTextOutput.onNext(text ?? "")
+                self?.viewModel.nameTextInput.onNext(text ?? "")
+                
+            }.disposed(by: disposeBag)
+        
+        emailTextField.rx.text
+            .asDriver()
+            .drive { [weak self] text in
+                // textの情報ハンドル
+                self?.viewModel.emailTextInput.onNext(text ?? "")
+            }.disposed(by: disposeBag)
+        
+        passwordTextField.rx.text
+            .asDriver()
+            .drive { [weak self] text in
+                // textの情報ハンドル
+                self?.viewModel.passwordTextInput.onNext(text ?? "")
+            }.disposed(by: disposeBag)
+        
+        viewModel.validRegisterDriver
+            .drive { validAll in
+                //validAllによってボタンの処理が変わる
+                self.registerButton.isEnabled = validAll
+                self.registerButton.backgroundColor = validAll ? .rgb(red: 227, green: 48, blue: 78) : .init(white: 0.7, alpha: 1)
+            }.disposed(by: disposeBag)
+        
+        registerButton.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                // 登録時の処理
+                self?.createUserToFireAuth()
+            }.disposed(by: disposeBag)
+        
+        
+    
+        
+    }
     //いつも通りの登録の処理
     
     private func createUserToFireAuth() {
         guard let email = emailTextField.text else { return }
         guard let passwoard = passwordTextField.text else { return }
         guard let name = nameTextField.text else { return }
-       
+        
         let authCredentials = AuthCredentials(email: email, password: passwoard, name: name)
         
-        AuthService.registerUser(withCredential: authCredentials)
+        AuthService.registerUser(withCredential: authCredentials) { success in
+            if success == true {
+                self.dismiss(animated: true)
+            }
+        }
+        
         
     }
     
- 
+    
     
 }

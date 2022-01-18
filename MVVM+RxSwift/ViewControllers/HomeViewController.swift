@@ -6,11 +6,15 @@
 //test git clone push
 
 import UIKit
+import FirebaseAuth
+import Firebase
 
 class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        checkIfUserIsLoggedIn()
         
         view.backgroundColor = .white
         
@@ -29,6 +33,18 @@ class HomeViewController: UIViewController {
         topControlView.anchor(height:100)
         bottomControlView.anchor(height:100)
         stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, bottom:  view.safeAreaLayoutGuide.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor)
+    }
+    
+    func checkIfUserIsLoggedIn() {
+        
+      //  if Auth.auth().currentUser == nil {
+            DispatchQueue.main.async {
+            let registerViewController = RegisterViewController()
+                registerViewController.modalPresentationStyle = .fullScreen
+            self.present(registerViewController, animated: false)
+            }
+            
+      //  }
     }
     
 }

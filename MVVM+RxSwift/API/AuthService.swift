@@ -16,7 +16,7 @@ struct AuthCredentials {
 struct AuthService {
 
 
-    static func registerUser(withCredential credentials: AuthCredentials) {
+    static func registerUser(withCredential credentials: AuthCredentials, completion: @escaping (Bool) -> Void) {
 
             Auth.auth().createUser(withEmail: credentials.email, password: credentials.password) { (result, error) in
 
@@ -32,9 +32,10 @@ struct AuthService {
                 COLLECTION_USERS.document(uid).setData(data) { error in
                     if let error = error {
                         print("ユーザー情報のfirestoreへの保存に失敗: ", error.localizedDescription)
+                        completion(false)
                         return
                     }
-
+                    completion(true)
                     print("ユーザー情報のfirestoreへの保存が成功")
                 }
             }
