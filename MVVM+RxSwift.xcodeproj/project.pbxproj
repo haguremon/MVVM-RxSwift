@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF2AEE292797C04D00653669 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2AEE282797C04D00653669 /* LoginViewController.swift */; };
 		CF8634F8276DC9AD005AFB04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8634F7276DC9AD005AFB04 /* AppDelegate.swift */; };
 		CF8634FA276DC9AD005AFB04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8634F9276DC9AD005AFB04 /* SceneDelegate.swift */; };
 		CF8634FC276DC9AD005AFB04 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8634FB276DC9AD005AFB04 /* HomeViewController.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF2AEE282797C04D00653669 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CF8634F4276DC9AD005AFB04 /* MVVM+RxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MVVM+RxSwift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF8634F7276DC9AD005AFB04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF8634F9276DC9AD005AFB04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			children = (
 				CF8634FB276DC9AD005AFB04 /* HomeViewController.swift */,
 				CFF1EA4A2775A33F000A77DD /* RegisterViewController.swift */,
+				CF2AEE282797C04D00653669 /* LoginViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				CFF1EA2B2774DD1F000A77DD /* CardInfoLabel.swift in Sources */,
 				CF8634FC276DC9AD005AFB04 /* HomeViewController.swift in Sources */,
 				CF86351C2770333F005AFB04 /* UIView-Extension.swift in Sources */,
+				CF2AEE292797C04D00653669 /* LoginViewController.swift in Sources */,
 				CFF1EA292771A8BD000A77DD /* UIColor-Extension.swift in Sources */,
 				CF86350F276DD2D6005AFB04 /* UIImage-Extension.swift in Sources */,
 				CF8634F8276DC9AD005AFB04 /* AppDelegate.swift in Sources */,

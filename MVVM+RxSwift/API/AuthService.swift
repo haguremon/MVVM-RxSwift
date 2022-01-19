@@ -15,7 +15,6 @@ struct AuthCredentials {
 
 struct AuthService {
 
-
     static func registerUser(withCredential credentials: AuthCredentials, completion: @escaping (Bool) -> Void) {
 
             Auth.auth().createUser(withEmail: credentials.email, password: credentials.password) { (result, error) in
@@ -40,6 +39,21 @@ struct AuthService {
                 }
             }
        }
-
+    
+    static func logUserIn(withEmail email: String, password: String, completion: @escaping (Bool) -> Void) {
+        
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("error", error.localizedDescription)
+                completion(false)
+              return
+            } else {
+                print("ログインに成功しました")
+                completion(true)
+            }
+            
+        }
     }
+
+}
 

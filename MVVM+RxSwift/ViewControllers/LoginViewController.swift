@@ -1,29 +1,26 @@
 //
-//  RegisterViewController.swift
+//  LoginViewController.swift
 //  MVVM+RxSwift
 //
-//  Created by IwasakIYuta on 2021/12/24.
+//  Created by IwasakIYuta on 2022/01/19.
 //
 
 import UIKit
 import RxSwift
 import FirebaseAuth
 
-class RegisterViewController: UIViewController {
+class LoginViewController: UIViewController {
     
     private let disposeBag = DisposeBag() //Rxは常に流れてるのでDisposeBagを使うことによって閉じる事ができてメモリリークを防ぐ
     let viewModel = RegiserViewModel()
     
-    private let titleLabel = RegisterTitleLabel(text: "Tinder")
-    private let nameTextField = RegisterTextField(placeHolder: "名前")
+    private let titleLabel = RegisterTitleLabel(text: "LOGIN")
     private let emailTextField = RegisterTextField(placeHolder: "email")
     private let passwordTextField = RegisterTextField(placeHolder: "password")
-    private let createAboutAccountButton = UIButton(type: .system).createAboutAccountButton(text: "既にアカウントをお持ちの方はこちらから")
+    private let dontHaveAccountButton = UIButton(type: .system).createAboutAccountButton(text: "新規登録してない方はこちらから")
     
-    private let registerButton = RegisterButton(text: "登録")
+    private let loginButton = RegisterButton(text: "ログイン")
     
-    
-    // MARK: - lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,13 +29,7 @@ class RegisterViewController: UIViewController {
         setupBindins()
         
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController?.isNavigationBarHidden = true
-    }
     
-    
-    //Gradientの背景を生み出す事ができる
     private func setupGradientLayer() {
         let layer = CAGradientLayer()
         let startColor = UIColor.rgb(red: 227, green: 48, blue: 78).cgColor
@@ -55,32 +46,23 @@ class RegisterViewController: UIViewController {
         passwordTextField.isSecureTextEntry = true
         passwordTextField.textContentType = .newPassword
         
-        let baseStackView = UIStackView(arrangedSubviews: [nameTextField, emailTextField, passwordTextField, registerButton])
+        let baseStackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton])
         baseStackView.axis = .vertical
         baseStackView.distribution = .fillEqually
         baseStackView.spacing = 20
         
         view.addSubview(baseStackView)
         view.addSubview(titleLabel)
-        view.addSubview(createAboutAccountButton)
+        view.addSubview(dontHaveAccountButton)
         
-        nameTextField.anchor(height: 45) //ここで幅を設定することによって　上の baseStackView.distribution = .fillEquallyによって均等になる
+        emailTextField.anchor(height: 45) //ここで幅を設定することによって　上の baseStackView.distribution = .fillEquallyによって均等になる
         baseStackView.anchor(left: view.leftAnchor, right: view.rightAnchor, centerY: view.centerYAnchor, leftPadding: 40, rightPadding: 40)
         titleLabel.anchor(bottom: baseStackView.topAnchor, centerX: view.centerXAnchor, bottomPadding: 20)
-        createAboutAccountButton.anchor(top: baseStackView.bottomAnchor,centerX: view.centerXAnchor, topPadding: 17)
+        dontHaveAccountButton.anchor(top: baseStackView.bottomAnchor,centerX: view.centerXAnchor, topPadding: 17)
     }
     
     private func setupBindins() {
         //        nameTextField.rx.value.subscribe(onNext: <#T##((String?) -> Void)?##((String?) -> Void)?##(String?) -> Void#>, onError: <#T##((Error) -> Void)?##((Error) -> Void)?##(Error) -> Void#>, onCompleted: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>, onDisposed: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
-        nameTextField.rx.text
-            .asDriver()
-            .drive { [weak self] text in
-                //[weak self]を使うことによって自身に参照するときに循環参照を防ぐ
-                // textの情報ハンドル
-                //self?.viewModel.nameTextOutput.onNext(text ?? "")
-                self?.viewModel.nameTextInput.onNext(text ?? "")
-                
-            }.disposed(by: disposeBag)
         
         emailTextField.rx.text
             .asDriver()
@@ -96,50 +78,45 @@ class RegisterViewController: UIViewController {
                 self?.viewModel.passwordTextInput.onNext(text ?? "")
             }.disposed(by: disposeBag)
         
-        viewModel.validRegisterDriver
+        viewModel.validLoginDriver
             .drive { validAll in
                 //validAllによってボタンの処理が変わる
-                self.registerButton.isEnabled = validAll
-                self.registerButton.backgroundColor = validAll ? .rgb(red: 227, green: 48, blue: 78) : .init(white: 0.7, alpha: 1)
+                self.loginButton.isEnabled = validAll
+                self.loginButton.backgroundColor = validAll ? .rgb(red: 227, green: 48, blue: 78) : .init(white: 0.7, alpha: 1)
             }.disposed(by: disposeBag)
         
-        registerButton.rx.tap
+        loginButton.rx.tap
             .asDriver()
             .drive { [weak self] _ in
-                // 登録時の処理
-                self?.createUserToFireAuth()
-            }.disposed(by: disposeBag)
-        
-        createAboutAccountButton.rx.tap
-            .asDriver()
-            .drive { [weak self] _ in
-               //loginViewに遷移処理
-            let loginViewController = LoginViewController()
-                self?.navigationController?.pushViewController(loginViewController, animated: true)
+                
+                self?.loginUserIN()
                 
             }.disposed(by: disposeBag)
         
-    
+        dontHaveAccountButton.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
+                //前のnavigationControllerの場所に戻す
+                self?.navigationController?.popViewController(animated: true)
+                
+            }.disposed(by: disposeBag)
         
     }
-    //いつも通りの登録の処理
     
-    private func createUserToFireAuth() {
-        guard let email = emailTextField.text else { return }
-        guard let passwoard = passwordTextField.text else { return }
-        guard let name = nameTextField.text else { return }
+    private func loginUserIN() {
+        let email = emailTextField.text ?? ""
+        let password = passwordTextField.text ?? ""
         
-        let authCredentials = AuthCredentials(email: email, password: passwoard, name: name)
-        
-        AuthService.registerUser(withCredential: authCredentials) { success in
+        AuthService.logUserIn(withEmail: email, password: password) { [weak self] success in
+            
             if success == true {
-                self.dismiss(animated: true)
+                self?.dismiss(animated: true)
+                return
+            } else {
+                print("失敗しました")
             }
         }
-        
-        
     }
-    
     
     
 }

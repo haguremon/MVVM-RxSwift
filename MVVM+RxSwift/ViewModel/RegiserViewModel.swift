@@ -18,6 +18,8 @@ class RegiserViewModel {
     var passwordTextOutput = PublishSubject<String>()
     
     var validRegisterSubject = BehaviorSubject<Bool>(value: false)
+    var validLoginSubject = BehaviorSubject<Bool>(value: false)
+
 
     // MARK: observer
     var nameTextInput: AnyObserver<String> {
@@ -37,11 +39,17 @@ class RegiserViewModel {
     }
     
     var validRegisterDriver: Driver<Bool> = Driver.never()
+    var validLoginDriver: Driver<Bool> = Driver.never()
+
 
     init() {
         
         validRegisterDriver = validRegisterSubject
-                    .asDriver(onErrorDriveWith: Driver.empty())//エラーの時にDriver.emptyを返す?
+                    .asDriver(onErrorDriveWith: Driver.empty())//エラーの時に空のDriverを返す?
+        //観測可能なシーケンスをasDriverに変更
+        
+        validLoginDriver = validLoginSubject
+                    .asDriver(onErrorDriveWith: Driver.empty())
 
         let nameVaild = nameTextOutput
             .asObservable()
@@ -66,6 +74,10 @@ class RegiserViewModel {
         //最新の発行どうしが結合　引数の最新の状態だけを取得する
         Observable.combineLatest(nameVaild, emailVaild, passwordVaild) { $0 && $1 && $2 }.subscribe { vaildAll in
             self.validRegisterSubject.onNext(vaildAll)
+        }.disposed(by: disposeBag)
+        
+        Observable.combineLatest(emailVaild, passwordVaild) { $0 && $1 }.subscribe { vaildAll in
+            self.validLoginSubject.onNext(vaildAll)
         }.disposed(by: disposeBag)
     }
 
