@@ -15,7 +15,7 @@ class CardView: UIView {
     // MARK: UIViews //めっちゃスッキリしてる使える
        private let cardImageView = CardImageView(frame: .zero)
        private let infoButton = UIButton(type: .system).createCardInfoButton()
-       private let nameLabel = CardInfoLabel(frame: .zero, labelText: "Yuta, 23", labelFont: .systemFont(ofSize: 40, weight: .heavy))
+               let nameLabel = CardInfoLabel(frame: .zero, labelText: "", labelFont: .systemFont(ofSize: 40, weight: .heavy))
        private let residenceLabel = CardInfoLabel(frame: .zero, labelText: "日本、東京", labelFont: .systemFont(ofSize: 20, weight: .regular))
        private let hobbyLabel = CardInfoLabel(frame: .zero, labelText: "ゲーム", labelFont: .systemFont(ofSize: 25, weight: .regular))
        private let introductionLabel = CardInfoLabel(frame: .zero, labelText: "ゲーム大好きです", labelFont: .systemFont(ofSize: 25, weight: .regular))

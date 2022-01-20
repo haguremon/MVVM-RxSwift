@@ -13,14 +13,14 @@ class RegisterButton: UIButton {
     override var isHighlighted: Bool {
         //isHighlightedされた時にボタンのバックグランドを変更する処理
         didSet {
-            self.backgroundColor = isHighlighted ? .rgb(red: 227, green: 48, blue: 78, alpha: 0.2) : .rgb(red: 227, green: 48, blue: 78)
+            self.backgroundColor = isHighlighted ? backgroundColor?.withAlphaComponent(0.2) : backgroundColor
         }
     }
     
-    init(text: String) {
+    init(text: String,backgroundColor: UIColor?) {
         super.init(frame: .zero)
         setTitle(text, for: .normal)
-        backgroundColor = .rgb(red: 227, green: 48, blue: 78)
+        self.backgroundColor = backgroundColor//
         setTitleColor(.white, for: .normal)
         layer.cornerRadius = 10
     }

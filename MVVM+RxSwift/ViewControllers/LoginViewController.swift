@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import FirebaseAuth
+import PKHUD
 
 class LoginViewController: UIViewController {
     
@@ -19,7 +20,7 @@ class LoginViewController: UIViewController {
     private let passwordTextField = RegisterTextField(placeHolder: "password")
     private let dontHaveAccountButton = UIButton(type: .system).createAboutAccountButton(text: "新規登録してない方はこちらから")
     
-    private let loginButton = RegisterButton(text: "ログイン")
+    private let loginButton = RegisterButton(text: "ログイン",backgroundColor: .systemBlue)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +83,7 @@ class LoginViewController: UIViewController {
             .drive { validAll in
                 //validAllによってボタンの処理が変わる
                 self.loginButton.isEnabled = validAll
-                self.loginButton.backgroundColor = validAll ? .rgb(red: 227, green: 48, blue: 78) : .init(white: 0.7, alpha: 1)
+                self.loginButton.backgroundColor = validAll ? .systemBlue : .init(white: 0.7, alpha: 1)
             }.disposed(by: disposeBag)
         
         loginButton.rx.tap
@@ -107,16 +108,21 @@ class LoginViewController: UIViewController {
         let email = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         
+        HUD.show(.progress)
         AuthService.logUserIn(withEmail: email, password: password) { [weak self] success in
             
             if success == true {
-                self?.dismiss(animated: true)
+                HUD.flash(.success, delay: 1.5) { _ in
+                    self?.dismiss(animated: true)
+                 }
                 return
             } else {
+                HUD.flash(.error, delay: 2.0)
                 print("失敗しました")
             }
         }
     }
     
+  
     
 }

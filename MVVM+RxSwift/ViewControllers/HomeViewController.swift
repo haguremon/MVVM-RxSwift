@@ -11,6 +11,10 @@ import Firebase
 
 class HomeViewController: UIViewController {
     
+    var user: User? { didSet { configureuser(user: self.user) } }
+    
+    let cardView = CardView()
+    
     private lazy var logoutButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(.blue, for: .normal)
@@ -43,15 +47,32 @@ class HomeViewController: UIViewController {
         
         checkIfUserIsLoggedIn()
         setupLayout()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        fetchUser()
+
+    }
+    
+    private func fetchUser() {
+         
+        UserService.fetchUser { [ weak self ] user in
+            self?.user = user
+     }
         
     }
     
+    private func configureuser(user: User?) {
+        guard let user = user else { return }
+            self.cardView.nameLabel.text = user.name
+    
+    
+    }
     private func setupLayout() {
         view.backgroundColor = .white
         
         let topControlView = TopControlView()
-        
-        let cardView = CardView()
         
         let bottomControlView = BottomControlView()
         

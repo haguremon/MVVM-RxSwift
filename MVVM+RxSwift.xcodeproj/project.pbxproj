@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		CF2AEE292797C04D00653669 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2AEE282797C04D00653669 /* LoginViewController.swift */; };
+		CF2AEE2C2799095B00653669 /* PKHUD in Frameworks */ = {isa = PBXBuildFile; productRef = CF2AEE2B2799095B00653669 /* PKHUD */; };
+		CF2AEE312799142700653669 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2AEE302799142700653669 /* User.swift */; };
+		CF2AEE33279915CD00653669 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2AEE32279915CD00653669 /* UserService.swift */; };
 		CF8634F8276DC9AD005AFB04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8634F7276DC9AD005AFB04 /* AppDelegate.swift */; };
 		CF8634FA276DC9AD005AFB04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8634F9276DC9AD005AFB04 /* SceneDelegate.swift */; };
 		CF8634FC276DC9AD005AFB04 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8634FB276DC9AD005AFB04 /* HomeViewController.swift */; };
@@ -41,6 +44,8 @@
 
 /* Begin PBXFileReference section */
 		CF2AEE282797C04D00653669 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CF2AEE302799142700653669 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CF2AEE32279915CD00653669 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		CF8634F4276DC9AD005AFB04 /* MVVM+RxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MVVM+RxSwift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF8634F7276DC9AD005AFB04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF8634F9276DC9AD005AFB04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +78,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF86351A276F8136005AFB04 /* RxSwift in Frameworks */,
+				CF2AEE2C2799095B00653669 /* PKHUD in Frameworks */,
 				CFBA7828278716CD00E1687E /* FirebaseAuth in Frameworks */,
 				CF863518276F8136005AFB04 /* RxRelay in Frameworks */,
 				CFBA7826278716CD00E1687E /* FirebaseAnalytics in Frameworks */,
@@ -85,6 +91,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF2AEE2F2799140D00653669 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CF2AEE302799142700653669 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CF8634EB276DC9AD005AFB04 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +118,7 @@
 		CF8634F6276DC9AD005AFB04 /* MVVM+RxSwift */ = {
 			isa = PBXGroup;
 			children = (
+				CF2AEE2F2799140D00653669 /* Models */,
 				CFBA7864278ACE0F00E1687E /* API */,
 				CFBA7860278ACD2900E1687E /* Unit */,
 				CFF1EA3D27759FC0000A77DD /* GoogleService-Info.plist */,
@@ -162,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				CFBA7865278ACE2500E1687E /* AuthService.swift */,
+				CF2AEE32279915CD00653669 /* UserService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -220,6 +236,7 @@
 				CFBA7827278716CD00E1687E /* FirebaseAuth */,
 				CFBA7829278716CD00E1687E /* FirebaseFirestore */,
 				CFBA782B278716CD00E1687E /* FirebaseStorage */,
+				CF2AEE2B2799095B00653669 /* PKHUD */,
 			);
 			productName = "MVVM+RxSwift";
 			productReference = CF8634F4276DC9AD005AFB04 /* MVVM+RxSwift.app */;
@@ -252,6 +269,7 @@
 			packageReferences = (
 				CF863514276F8136005AFB04 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				CFBA7824278716CD00E1687E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CF2AEE2A2799095A00653669 /* XCRemoteSwiftPackageReference "PKHUD" */,
 			);
 			productRefGroup = CF8634F5276DC9AD005AFB04 /* Products */;
 			projectDirPath = "";
@@ -286,6 +304,7 @@
 				CF863511276DD336005AFB04 /* BottomControlView.swift in Sources */,
 				CFBA7866278ACE2500E1687E /* AuthService.swift in Sources */,
 				CFF1EA2B2774DD1F000A77DD /* CardInfoLabel.swift in Sources */,
+				CF2AEE33279915CD00653669 /* UserService.swift in Sources */,
 				CF8634FC276DC9AD005AFB04 /* HomeViewController.swift in Sources */,
 				CF86351C2770333F005AFB04 /* UIView-Extension.swift in Sources */,
 				CF2AEE292797C04D00653669 /* LoginViewController.swift in Sources */,
@@ -300,6 +319,7 @@
 				CFF1EA4B2775A33F000A77DD /* RegisterViewController.swift in Sources */,
 				CFF1EA2F2774E396000A77DD /* CardImageView.swift in Sources */,
 				CFF1EA2D2774E311000A77DD /* UIButton-Extension.swift in Sources */,
+				CF2AEE312799142700653669 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +531,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		CF2AEE2A2799095A00653669 /* XCRemoteSwiftPackageReference "PKHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pkluz/PKHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		CF863514276F8136005AFB04 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -530,6 +558,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CF2AEE2B2799095B00653669 /* PKHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF2AEE2A2799095A00653669 /* XCRemoteSwiftPackageReference "PKHUD" */;
+			productName = PKHUD;
+		};
 		CF863515276F8136005AFB04 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CF863514276F8136005AFB04 /* XCRemoteSwiftPackageReference "RxSwift" */;

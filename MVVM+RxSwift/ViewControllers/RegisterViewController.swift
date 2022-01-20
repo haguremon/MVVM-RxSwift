@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import FirebaseAuth
+import PKHUD
 
 class RegisterViewController: UIViewController {
     
@@ -20,7 +21,7 @@ class RegisterViewController: UIViewController {
     private let passwordTextField = RegisterTextField(placeHolder: "password")
     private let createAboutAccountButton = UIButton(type: .system).createAboutAccountButton(text: "既にアカウントをお持ちの方はこちらから")
     
-    private let registerButton = RegisterButton(text: "登録")
+    private let registerButton = RegisterButton(text: "登録", backgroundColor: .rgb(red: 227, green: 48, blue: 78))
     
     
     // MARK: - lifeCycle
@@ -130,16 +131,21 @@ class RegisterViewController: UIViewController {
         guard let name = nameTextField.text else { return }
         
         let authCredentials = AuthCredentials(email: email, password: passwoard, name: name)
-        
-        AuthService.registerUser(withCredential: authCredentials) { success in
+        HUD.show(.progress)
+        AuthService.registerUser(withCredential: authCredentials) { [ weak self] success in
+            
             if success == true {
-                self.dismiss(animated: true)
+                HUD.flash(.success, delay: 1.5) { _ in
+                    self?.dismiss(animated: true)
+                 }
+                return
+            } else {
+                HUD.flash(.error, delay: 2.0)
             }
         }
         
         
     }
-    
-    
+        
     
 }
