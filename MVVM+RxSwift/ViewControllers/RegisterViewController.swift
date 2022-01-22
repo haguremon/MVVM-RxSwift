@@ -135,9 +135,9 @@ class RegisterViewController: UIViewController {
         AuthService.registerUser(withCredential: authCredentials) { [ weak self] success in
             
             if success == true {
-                HUD.flash(.success, delay: 1.5) { _ in
+                HUD.hide()
                     self?.dismiss(animated: true)
-                 }
+                 
                 return
             } else {
                 HUD.flash(.error, delay: 2.0)

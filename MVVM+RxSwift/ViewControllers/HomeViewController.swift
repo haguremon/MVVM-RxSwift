@@ -8,12 +8,15 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import PKHUD
 
 class HomeViewController: UIViewController {
     
-    var user: User? { didSet { configureuser(user: self.user) } }
+    var user: User?
     
-    let cardView = CardView()
+    var users: [User]?
+    
+    let cardView = UIView()
     
     private lazy var logoutButton: UIButton = {
         let button = UIButton()
@@ -52,7 +55,7 @@ class HomeViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         fetchUser()
-
+        fetchUsers()
     }
     
     private func fetchUser() {
@@ -62,13 +65,25 @@ class HomeViewController: UIViewController {
      }
         
     }
-    
-    private func configureuser(user: User?) {
-        guard let user = user else { return }
-            self.cardView.nameLabel.text = user.name
-    
-    
+    private func fetchUsers() {
+        HUD.show(.progress)
+        
+        UserService.fetchUsers { users in
+            self.users = users
+            HUD.flash(.success,delay: 1)
+            self.users?.forEach({ user in
+                //CardViewの引数にuserが必要なのでそれを使って複数のCardViewを作成
+                let card = CardView(user: user)
+                self.cardView.addSubview(card)//cardViewの上にaddSubviewすると
+                //そして制約をする
+                card.anchor(top: self.cardView.topAnchor, bottom: self.cardView.bottomAnchor, left: self.cardView.leftAnchor, right: self.cardView.rightAnchor)
+                
+            })
+            
+        }
+
     }
+    
     private func setupLayout() {
         view.backgroundColor = .white
         
