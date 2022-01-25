@@ -9,14 +9,21 @@ import UIKit
 import FirebaseAuth
 import Firebase
 import PKHUD
+import RxSwift
+import RxCocoa
 
 class HomeViewController: UIViewController {
+    
+    let disposeBag = DisposeBag()
     
     var user: User?
     
     var users: [User]?
     
     let cardView = UIView()
+    let topControlView = TopControlView()
+    
+    let bottomControlView = BottomControlView()
     
     private lazy var logoutButton: UIButton = {
         let button = UIButton()
@@ -50,6 +57,7 @@ class HomeViewController: UIViewController {
         
         checkIfUserIsLoggedIn()
         setupLayout()
+        setupBindins()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,9 +95,7 @@ class HomeViewController: UIViewController {
     private func setupLayout() {
         view.backgroundColor = .white
         
-        let topControlView = TopControlView()
-        
-        let bottomControlView = BottomControlView()
+
         
         let stackView = UIStackView(arrangedSubviews: [topControlView, cardView, bottomControlView])
         stackView.axis = .vertical
@@ -115,7 +121,17 @@ class HomeViewController: UIViewController {
                 
             }
         }
-        
 }
+    
+    private func setupBindins() {
+        topControlView.profileButton.rx.tap
+            .asDriver()
+            .drive { _ in
+                let profileViewController = ProfileViewController()
+                self.present(profileViewController, animated: true)
+            }.disposed(by: disposeBag)
+
+        
+    }
     
 }

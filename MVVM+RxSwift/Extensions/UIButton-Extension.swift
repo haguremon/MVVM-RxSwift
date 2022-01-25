@@ -11,17 +11,33 @@ import UIKit
 extension UIButton {
     
     func createCardInfoButton() -> UIButton {
-        self.setImage(UIImage(systemName: "info.circle.fill")?.resize(size: .init(width: 40, height: 40)), for: .normal)
-        self.tintColor = .white
-        self.imageView?.contentMode = .scaleAspectFit
+        setImage(UIImage(systemName: "info.circle.fill")?.resize(size: .init(width: 40, height: 40)), for: .normal)
+        tintColor = .white
+        imageView?.contentMode = .scaleAspectFit
         return self
     }
     
     func createAboutAccountButton(text: String) -> UIButton {
-        self.setTitle(text, for: .normal)
-        self.titleLabel?.font = .systemFont(ofSize: 14)
-        self.titleLabel?.textColor = .blue
+        setTitle(text, for: .normal)
+        titleLabel?.font = .systemFont(ofSize: 14)
+        titleLabel?.textColor = .blue
         return self
     }
+    
+    func createProfileTopButton(text: String) -> UIButton {
+        setTitle(text, for: .normal)
+        titleLabel?.font = .systemFont(ofSize: 15)
+        return self
+    }
+    func createEditProfileButton() -> UIButton {
+        let image = UIImage(systemName: "square.and.pencil")
+        setImage(image, for: .normal)
+        layer.cornerRadius = 30
+        tintColor = .darkGray
+        imageView?.contentMode = .scaleToFill
+        backgroundColor = .white
+        return self
+    }
+    
     
 }

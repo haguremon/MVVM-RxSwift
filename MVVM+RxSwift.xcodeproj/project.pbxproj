@@ -32,6 +32,9 @@
 		CFBA7862278ACD7A00E1687E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBA7861278ACD7A00E1687E /* Constants.swift */; };
 		CFBA7866278ACE2500E1687E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBA7865278ACE2500E1687E /* AuthService.swift */; };
 		CFBA7869278AD4DE00E1687E /* RegiserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBA7868278AD4DE00E1687E /* RegiserViewModel.swift */; };
+		CFCCB4BC279FFEA4005B8FD2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCCB4BB279FFEA4005B8FD2 /* ProfileViewController.swift */; };
+		CFCCB4BF27A0062D005B8FD2 /* ProfileImageVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCCB4BE27A0062D005B8FD2 /* ProfileImageVIew.swift */; };
+		CFCCB4C127A0071B005B8FD2 /* ProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCCB4C027A0071B005B8FD2 /* ProfileLabel.swift */; };
 		CFF1EA2727719698000A77DD /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA2627719698000A77DD /* CardView.swift */; };
 		CFF1EA292771A8BD000A77DD /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA282771A8BD000A77DD /* UIColor-Extension.swift */; };
 		CFF1EA2B2774DD1F000A77DD /* CardInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA2A2774DD1F000A77DD /* CardInfoLabel.swift */; };
@@ -62,6 +65,9 @@
 		CFBA7861278ACD7A00E1687E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CFBA7865278ACE2500E1687E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		CFBA7868278AD4DE00E1687E /* RegiserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegiserViewModel.swift; sourceTree = "<group>"; };
+		CFCCB4BB279FFEA4005B8FD2 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CFCCB4BE27A0062D005B8FD2 /* ProfileImageVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageVIew.swift; sourceTree = "<group>"; };
+		CFCCB4C027A0071B005B8FD2 /* ProfileLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLabel.swift; sourceTree = "<group>"; };
 		CFF1EA2627719698000A77DD /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CFF1EA282771A8BD000A77DD /* UIColor-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		CFF1EA2A2774DD1F000A77DD /* CardInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInfoLabel.swift; sourceTree = "<group>"; };
@@ -138,6 +144,7 @@
 		CF86350B276DD17E005AFB04 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CFCCB4BD27A00609005B8FD2 /* Profile */,
 				CFF1EA492775A2F1000A77DD /* Register */,
 				CFF1EA482775A2B6000A77DD /* Home */,
 			);
@@ -150,6 +157,7 @@
 				CF8634FB276DC9AD005AFB04 /* HomeViewController.swift */,
 				CFF1EA4A2775A33F000A77DD /* RegisterViewController.swift */,
 				CF2AEE282797C04D00653669 /* LoginViewController.swift */,
+				CFCCB4BB279FFEA4005B8FD2 /* ProfileViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -188,6 +196,15 @@
 				CFBA7868278AD4DE00E1687E /* RegiserViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CFCCB4BD27A00609005B8FD2 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				CFCCB4BE27A0062D005B8FD2 /* ProfileImageVIew.swift */,
+				CFCCB4C027A0071B005B8FD2 /* ProfileLabel.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		CFF1EA482775A2B6000A77DD /* Home */ = {
@@ -306,6 +323,7 @@
 				CFF1EA2B2774DD1F000A77DD /* CardInfoLabel.swift in Sources */,
 				CF2AEE33279915CD00653669 /* UserService.swift in Sources */,
 				CF8634FC276DC9AD005AFB04 /* HomeViewController.swift in Sources */,
+				CFCCB4BF27A0062D005B8FD2 /* ProfileImageVIew.swift in Sources */,
 				CF86351C2770333F005AFB04 /* UIView-Extension.swift in Sources */,
 				CF2AEE292797C04D00653669 /* LoginViewController.swift in Sources */,
 				CFF1EA292771A8BD000A77DD /* UIColor-Extension.swift in Sources */,
@@ -313,11 +331,13 @@
 				CF8634F8276DC9AD005AFB04 /* AppDelegate.swift in Sources */,
 				CFF1EA2727719698000A77DD /* CardView.swift in Sources */,
 				CFBA782E2787173700E1687E /* RegisterButton.swift in Sources */,
+				CFCCB4BC279FFEA4005B8FD2 /* ProfileViewController.swift in Sources */,
 				CFBA78302787175100E1687E /* RegisterTitleLabel.swift in Sources */,
 				CF8634FA276DC9AD005AFB04 /* SceneDelegate.swift in Sources */,
 				CFF1EA4E2775A3A4000A77DD /* RegisterTextField.swift in Sources */,
 				CFF1EA4B2775A33F000A77DD /* RegisterViewController.swift in Sources */,
 				CFF1EA2F2774E396000A77DD /* CardImageView.swift in Sources */,
+				CFCCB4C127A0071B005B8FD2 /* ProfileLabel.swift in Sources */,
 				CFF1EA2D2774E311000A77DD /* UIButton-Extension.swift in Sources */,
 				CF2AEE312799142700653669 /* User.swift in Sources */,
 			);
