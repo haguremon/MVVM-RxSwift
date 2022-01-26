@@ -128,6 +128,7 @@ class HomeViewController: UIViewController {
             .asDriver()
             .drive { _ in
                 let profileViewController = ProfileViewController()
+                profileViewController.user = self.user
                 self.present(profileViewController, animated: true)
             }.disposed(by: disposeBag)
 

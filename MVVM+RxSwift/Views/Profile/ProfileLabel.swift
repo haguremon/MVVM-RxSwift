@@ -15,6 +15,13 @@ class ProfileLabel: UILabel {
         textColor = .black
     }
     
+    init(title: String){
+        super.init(frame: .zero)
+        text = title
+        font = UIFont.systemFont(ofSize: 14)
+        textColor = .darkGray
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

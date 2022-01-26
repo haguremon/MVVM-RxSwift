@@ -11,6 +11,8 @@ class ProfileViewController: UIViewController {
 
     private let cellID = "cell"
     
+    var user: User?
+    
     let saveButton = UIButton.init(type: .system).createProfileTopButton(text: "保存")
     let logoutButton = UIButton.init(type: .system).createProfileTopButton(text: "ログアウト")
     let profileImageView = ProfileImageVIew()
@@ -19,12 +21,12 @@ class ProfileViewController: UIViewController {
     
     lazy var infoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize //セルの大きさを自動にする
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
         cv.delegate = self
         cv.dataSource = self
-        cv.backgroundColor = .blue
+        cv.backgroundColor = .white
         cv.register(InfoCollectionViewCell.self, forCellWithReuseIdentifier: cellID)
         return cv
     }()
@@ -60,29 +62,16 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! InfoCollectionViewCell
       
+        cell.user = user
         
         return cell
     }
     
 }
 
-
-//TODO: - 明日フォルダをわかるかも
-class InfoCollectionViewCell: UICollectionViewCell {
-    
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        backgroundColor = .green
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
