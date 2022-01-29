@@ -13,7 +13,12 @@ class InfoCollectionViewCell: UICollectionViewCell {
     var user: User? {
         didSet {
             nameTextField.text = user?.name
+            ageTextField.text = user?.age
             emailTextField.text = user?.email
+            residenceTextField.text = user?.residence
+            hobbyTextField.text = user?.hobby
+            introductionTextField.text = user?.introduction
+            
         }
     }
     
@@ -42,8 +47,9 @@ class InfoCollectionViewCell: UICollectionViewCell {
         ]
         //めちゃくちゃ便利だからこれから使う
         let stackViews = views.map { views -> UIStackView in
-            guard let label = views.first,
-                  let textField = views.last else { return UIStackView() }
+            guard let label = views.first as? UILabel,
+                  let textField = views.last as? UITextField else { return UIStackView() }
+            
             let stackView = UIStackView(arrangedSubviews: [label,textField])
             stackView.axis = .vertical
             stackView.spacing = 5
@@ -55,7 +61,8 @@ class InfoCollectionViewCell: UICollectionViewCell {
             baseStackView.axis = .vertical
             baseStackView.spacing = 15
         addSubview(baseStackView)
-        nameTextField.anchor(width: UIScreen.main.bounds.width - 40, height: 80)
+        
+        nameTextField.anchor(width: UIScreen.main.bounds.width - 40, height: 50)
         
         baseStackView.anchor(top: topAnchor, bottom: bottomAnchor, left: leftAnchor, right: rightAnchor,topPadding: 10,leftPadding: 20, rightPadding: 20)
         

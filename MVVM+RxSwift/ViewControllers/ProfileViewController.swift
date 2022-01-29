@@ -6,13 +6,23 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class ProfileViewController: UIViewController {
 
     private let cellID = "cell"
+    let disposeBag = DisposeBag()
     
     var user: User?
     
+    private var name = ""
+    private var age = ""
+    private var email = ""
+    private var residence = ""
+    private var hobby = ""
+    private var introduction = ""
+   
     let saveButton = UIButton.init(type: .system).createProfileTopButton(text: "保存")
     let logoutButton = UIButton.init(type: .system).createProfileTopButton(text: "ログアウト")
     let profileImageView = ProfileImageVIew()
@@ -35,6 +45,34 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
 
         setupLayout()
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupBindins()
+    }
+    
+    private func setupBindins() {
+        saveButton.rx.tap
+            .asDriver()
+            .drive { [weak self]  _ in
+            
+                let dic = [
+                    "name": self?.name,
+                    "age": self?.age,
+                    "email": self?.email,
+                    "residence": self?.residence,
+                    "hobby": self?.hobby,
+                    "introduction": self?.introduction
+                ]
+                UserService.updateUser(dic: dic as [String : Any]) {
+                    
+                    print("成功しました")
+                }
+                
+            }.disposed(by: disposeBag)
+
+    
     }
     
     private func setupLayout() {
@@ -67,10 +105,54 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! InfoCollectionViewCell
-      
         cell.user = user
         
+        setupBindinsCell(cell)
+        
         return cell
+    }
+    
+    private func setupBindinsCell(_ cell: InfoCollectionViewCell) {
+        
+        cell.nameTextField.rx.text
+            .asDriver()
+            .drive { [weak self] text in
+                self?.name = text ?? ""
+            }.disposed(by: disposeBag)
+        
+        cell.ageTextField.rx.text
+            .asDriver()
+            .drive { [weak self] text in
+                self?.age = text ?? ""
+            }.disposed(by: disposeBag)
+        
+        cell.emailTextField.rx.text
+            .asDriver()
+            .drive { [weak self] text in
+                self?.email = text ?? ""
+
+            }.disposed(by: disposeBag)
+        
+        cell.residenceTextField.rx.text
+            .asDriver()
+            .drive { [weak self] text in
+                self?.residence = text ?? ""
+            }.disposed(by: disposeBag)
+        
+        cell.hobbyTextField.rx.text
+            .asDriver()
+            .drive { [weak self] text in
+                self?.hobby = text ?? ""
+
+            }.disposed(by: disposeBag)
+        
+        
+        cell.introductionTextField.rx.text
+            .asDriver()
+            .drive { [weak self] text in
+                self?.introduction = text ?? ""
+            }.disposed(by: disposeBag)
+        
     }
     
 }
