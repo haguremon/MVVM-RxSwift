@@ -75,16 +75,17 @@ class HomeViewController: UIViewController {
     }
     private func fetchUsers() {
         HUD.show(.progress)
-        
+       
         UserService.fetchUsers { users in
             self.users = users
             HUD.flash(.success,delay: 1)
             self.users?.forEach({ user in
-                //CardViewの引数にuserが必要なのでそれを使って複数のCardViewを作成
-                let card = CardView(user: user)
-                self.cardView.addSubview(card)//cardViewの上にaddSubviewすると
-                //そして制約をする
-                card.anchor(top: self.cardView.topAnchor, bottom: self.cardView.bottomAnchor, left: self.cardView.leftAnchor, right: self.cardView.rightAnchor)
+            let card = CardView(user: user)
+            self.cardView.addSubview(card)//cardViewの上にaddSubviewすると
+            //そして制約をする
+            card.anchor(top: self.cardView.topAnchor, bottom: self.cardView.bottomAnchor, left: self.cardView.leftAnchor, right: self.cardView.rightAnchor)
+        //CardViewの引数にuserが必要なのでそれを使って複数のCardViewを作成
+          
                 
             })
             
@@ -129,10 +130,18 @@ class HomeViewController: UIViewController {
             .drive { _ in
                 let profileViewController = ProfileViewController()
                 profileViewController.user = self.user
+                profileViewController.delegate = self
                 self.present(profileViewController, animated: true)
             }.disposed(by: disposeBag)
 
-        
     }
+    
+}
+extension HomeViewController: ProfileViewControllerDelegate {
+    func didChangedProfile() {
+        fetchUser()
+        fetchUsers()
+    }
+    
     
 }

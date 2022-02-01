@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import UIKit
 
 struct User {
     
@@ -15,6 +16,7 @@ struct User {
     let residence: String
     let hobby: String
     let introduction: String
+    let profileImageURL: String
     let createdAt: Timestamp
     let uid: String
     
@@ -25,6 +27,7 @@ struct User {
         self.residence = dic["residence"] as? String ?? ""
         self.hobby = dic["hobby"] as? String ?? ""
         self.introduction = dic["introduction"] as? String ?? ""
+        self.profileImageURL = dic["profileImageURL"] as? String ?? ""
         self.createdAt = dic["createdAt"] as? Timestamp ?? Timestamp()
         self.uid = dic["uid"] as? String ?? ""
     }

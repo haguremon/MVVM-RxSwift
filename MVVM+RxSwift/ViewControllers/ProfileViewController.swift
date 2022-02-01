@@ -8,13 +8,27 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import SDWebImage
+import FirebaseAuth
+
+protocol ProfileViewControllerDelegate: AnyObject {
+    func didChangedProfile()
+}
 
 class ProfileViewController: UIViewController {
-
-    private let cellID = "cell"
     let disposeBag = DisposeBag()
+   
+    weak var delegate: ProfileViewControllerDelegate?
     
-    var user: User?
+    private let cellID = "cell"
+    var user: User? {
+       
+        didSet {
+            profileImageView.sd_setImage(with: URL(string: user!.profileImageURL))
+        }
+        
+    }
+    private var hasChangedImage = false
     
     private var name = ""
     private var age = ""
@@ -56,24 +70,65 @@ class ProfileViewController: UIViewController {
         saveButton.rx.tap
             .asDriver()
             .drive { [weak self]  _ in
-            
+                guard let self = self else { return }
+                
                 let dic = [
-                    "name": self?.name,
-                    "age": self?.age,
-                    "email": self?.email,
-                    "residence": self?.residence,
-                    "hobby": self?.hobby,
-                    "introduction": self?.introduction
+                    "name": self.name,
+                    "age": self.age,
+                    "email": self.email,
+                    "residence": self.residence,
+                    "hobby": self.hobby,
+                    "introduction": self.introduction
                 ]
-                UserService.updateUser(dic: dic as [String : Any]) {
+                
+                if self.hasChangedImage {
                     
+                    ImageService.uploadImage(image: self.profileImageView.image,dic: dic)
+               
+                } else {
+                
+                UserService.updateUser(dic: dic as [String : Any]) {
                     print("成功しました")
                 }
+                   
+                }
+                self.delegate?.didChangedProfile()
+            }.disposed(by: disposeBag)
+        
+        profileEditButton.rx.tap
+            .asDriver()
+            .drive { [weak self] _ in
                 
+            let pickerView =  UIImagePickerController()
+                pickerView.delegate = self
+                pickerView.allowsEditing = true
+                self?.present(pickerView, animated: true)
+            }.disposed(by: disposeBag)
+        
+        logoutButton.rx.tap
+            .asDriver()
+            .drive { [ weak self ] _ in
+                self?.logOut()
             }.disposed(by: disposeBag)
 
-    
     }
+    
+      func logOut() {
+         
+//         do {
+//             try Auth.auth().signOut()
+//             let registerViewController = RegisterViewController()
+//             let naVRVC = UINavigationController(rootViewController: registerViewController)
+//             naVRVC.modalPresentationStyle = .fullScreen
+//             self.present(naVRVC, animated: true)
+//
+//         } catch {
+//             print(error.localizedDescription)
+//         }
+         
+        
+         
+     }
     
     private func setupLayout() {
         view.backgroundColor = .white
@@ -87,8 +142,11 @@ class ProfileViewController: UIViewController {
         saveButton.anchor(top:view.topAnchor,left: view.leftAnchor,topPadding: 20,leftPadding: 15)
         logoutButton.anchor(top:view.topAnchor,right: view.rightAnchor,topPadding: 20,rightPadding:15)
         profileImageView.anchor(top: view.topAnchor,centerX: view.centerXAnchor,width: 180,height: 180,topPadding: 60)
+        profileImageView.layer.cornerRadius = 90
+        profileImageView.layer.masksToBounds = true
         nameLable.anchor(top: profileImageView.bottomAnchor,centerX: view.centerXAnchor,topPadding: 20)
         profileEditButton.anchor(top:profileImageView.topAnchor,right: profileImageView.rightAnchor,width: 60,height: 60)
+        
         
         infoCollectionView.anchor(top: nameLable.bottomAnchor, bottom: view.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor , topPadding: 20)
         
@@ -157,3 +215,20 @@ extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataS
     
 }
 
+//MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    
+      func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+          guard let selectedImage = info[.editedImage] as? UIImage else { return }
+          profileImageView.image = selectedImage.withRenderingMode(.alwaysOriginal)
+          profileImageView.contentMode = .scaleAspectFill
+          profileImageView.layer.cornerRadius = 90
+          
+          profileImageView.layer.masksToBounds = true
+          self.hasChangedImage = true
+          self.dismiss(animated: true)
+      }
+    
+    }

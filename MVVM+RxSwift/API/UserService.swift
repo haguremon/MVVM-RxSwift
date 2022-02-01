@@ -6,7 +6,7 @@
 //
 
 import FirebaseAuth
-import FirebaseFirestore
+//import FirebaseFirestore
 
 struct UserService {
     
@@ -15,6 +15,7 @@ struct UserService {
         guard let uid = Auth.auth().currentUser?.uid else {
             return
         }
+        //更新をすぐにできるを使うとgetDocumentsより便利。チャットアプリなどでよく使う
         COLLECTION_USERS.document(uid).addSnapshotListener { snapshot, _ in
 //        COLLECTION_USERS.document(uid).getDocument { snapshot, _ in
             guard let dictonary = snapshot?.data() else { return }
@@ -25,8 +26,8 @@ struct UserService {
     }
     
     static func fetchUsers(completion: @escaping([User]) -> Void) {
-    //更新をすぐにできるを使うとgetDocumentsより便利。チャットアプリなどでよく使う
-    
+   
+
       COLLECTION_USERS.getDocuments { (snapshot, error) in
              if let error = error {
                  print(error.localizedDescription)

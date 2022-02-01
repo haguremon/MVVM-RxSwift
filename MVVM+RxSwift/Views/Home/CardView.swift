@@ -7,17 +7,18 @@
 
 
 import UIKit
+import SDWebImage
 
 class CardView: UIView {
     
     private let gradientLayer = CAGradientLayer()
 
     // MARK: UIViews //めっちゃスッキリしてる使える
-       private let cardImageView = CardImageView(frame: .zero)
+               let cardImageView = CardImageView(frame: .zero)
        private let infoButton = UIButton(type: .system).createCardInfoButton()
                let nameLabel = CardInfoLabel(frame: .zero, labelText: "", labelFont: .systemFont(ofSize: 40, weight: .heavy))
-       private let residenceLabel = CardInfoLabel(frame: .zero, labelText: "日本、東京", labelFont: .systemFont(ofSize: 20, weight: .regular))
-       private let hobbyLabel = CardInfoLabel(frame: .zero, labelText: "ゲーム", labelFont: .systemFont(ofSize: 25, weight: .regular))
+       private var residenceLabel = CardInfoLabel(frame: .zero, labelText: "日本、東京", labelFont: .systemFont(ofSize: 20, weight: .regular))
+       private var hobbyLabel = CardInfoLabel(frame: .zero, labelText: "ゲーム", labelFont: .systemFont(ofSize: 25, weight: .regular))
        private let introductionLabel = CardInfoLabel(frame: .zero, labelText: "ゲーム大好きです", labelFont: .systemFont(ofSize: 25, weight: .regular))
        private let goodLabel = CardInfoLabel(frame: .zero, labelText: "GOOD", labelColor: .rgb(red: 137, green: 223, blue: 86))
        private let nopeLabel = CardInfoLabel(frame: .zero, labelText: "NOPE", labelColor: .rgb(red: 225, green: 80, blue: 80))
@@ -119,6 +120,7 @@ class CardView: UIView {
         nopeLabel.anchor(top: cardImageView.topAnchor, right: cardImageView.rightAnchor, width: 140, height: 55, topPadding: 25, rightPadding: 20)
         nameLabel.text = user.name
         introductionLabel.text = user.email
+        cardImageView.sd_setImage(with: URL(string: user.profileImageURL), completed: nil)
         
     }
     

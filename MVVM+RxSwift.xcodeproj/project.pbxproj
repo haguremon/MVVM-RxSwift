@@ -37,6 +37,8 @@
 		CFCCB4C127A0071B005B8FD2 /* ProfileLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCCB4C027A0071B005B8FD2 /* ProfileLabel.swift */; };
 		CFCCB4C327A11D78005B8FD2 /* ProfileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCCB4C227A11D78005B8FD2 /* ProfileTextField.swift */; };
 		CFCCB4C627A11F1C005B8FD2 /* InfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCCB4C527A11F1C005B8FD2 /* InfoCollectionViewCell.swift */; };
+		CFCCB4C827A9106A005B8FD2 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCCB4C727A91069005B8FD2 /* ImageService.swift */; };
+		CFCCB4CB27A91B9F005B8FD2 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = CFCCB4CA27A91B9F005B8FD2 /* SDWebImage */; };
 		CFF1EA2727719698000A77DD /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA2627719698000A77DD /* CardView.swift */; };
 		CFF1EA292771A8BD000A77DD /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA282771A8BD000A77DD /* UIColor-Extension.swift */; };
 		CFF1EA2B2774DD1F000A77DD /* CardInfoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF1EA2A2774DD1F000A77DD /* CardInfoLabel.swift */; };
@@ -72,6 +74,7 @@
 		CFCCB4C027A0071B005B8FD2 /* ProfileLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLabel.swift; sourceTree = "<group>"; };
 		CFCCB4C227A11D78005B8FD2 /* ProfileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTextField.swift; sourceTree = "<group>"; };
 		CFCCB4C527A11F1C005B8FD2 /* InfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		CFCCB4C727A91069005B8FD2 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		CFF1EA2627719698000A77DD /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CFF1EA282771A8BD000A77DD /* UIColor-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		CFF1EA2A2774DD1F000A77DD /* CardInfoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInfoLabel.swift; sourceTree = "<group>"; };
@@ -93,6 +96,7 @@
 				CF863518276F8136005AFB04 /* RxRelay in Frameworks */,
 				CFBA7826278716CD00E1687E /* FirebaseAnalytics in Frameworks */,
 				CFBA782C278716CD00E1687E /* FirebaseStorage in Frameworks */,
+				CFCCB4CB27A91B9F005B8FD2 /* SDWebImage in Frameworks */,
 				CF863516276F8136005AFB04 /* RxCocoa in Frameworks */,
 				CFBA782A278716CD00E1687E /* FirebaseFirestore in Frameworks */,
 			);
@@ -191,6 +195,7 @@
 			children = (
 				CFBA7865278ACE2500E1687E /* AuthService.swift */,
 				CF2AEE32279915CD00653669 /* UserService.swift */,
+				CFCCB4C727A91069005B8FD2 /* ImageService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 				CFBA7829278716CD00E1687E /* FirebaseFirestore */,
 				CFBA782B278716CD00E1687E /* FirebaseStorage */,
 				CF2AEE2B2799095B00653669 /* PKHUD */,
+				CFCCB4CA27A91B9F005B8FD2 /* SDWebImage */,
 			);
 			productName = "MVVM+RxSwift";
 			productReference = CF8634F4276DC9AD005AFB04 /* MVVM+RxSwift.app */;
@@ -301,6 +307,7 @@
 				CF863514276F8136005AFB04 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				CFBA7824278716CD00E1687E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				CF2AEE2A2799095A00653669 /* XCRemoteSwiftPackageReference "PKHUD" */,
+				CFCCB4C927A91B9E005B8FD2 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = CF8634F5276DC9AD005AFB04 /* Products */;
 			projectDirPath = "";
@@ -342,6 +349,7 @@
 				CF2AEE292797C04D00653669 /* LoginViewController.swift in Sources */,
 				CFF1EA292771A8BD000A77DD /* UIColor-Extension.swift in Sources */,
 				CF86350F276DD2D6005AFB04 /* UIImage-Extension.swift in Sources */,
+				CFCCB4C827A9106A005B8FD2 /* ImageService.swift in Sources */,
 				CF8634F8276DC9AD005AFB04 /* AppDelegate.swift in Sources */,
 				CFCCB4C327A11D78005B8FD2 /* ProfileTextField.swift in Sources */,
 				CFCCB4C627A11F1C005B8FD2 /* InfoCollectionViewCell.swift in Sources */,
@@ -591,6 +599,14 @@
 				version = 8.9.1;
 			};
 		};
+		CFCCB4C927A91B9E005B8FD2 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -633,6 +649,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CFBA7824278716CD00E1687E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		CFCCB4CA27A91B9F005B8FD2 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFCCB4C927A91B9E005B8FD2 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
