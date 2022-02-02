@@ -18,7 +18,6 @@ class BottomControlView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-            
         let baseStackView = UIStackView(arrangedSubviews: [reloadView, nopeView, superlikeView, likeView, boostView])
         baseStackView.axis = .horizontal
         baseStackView.distribution = .fillEqually

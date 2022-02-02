@@ -13,6 +13,7 @@ import FirebaseAuth
 
 protocol ProfileViewControllerDelegate: AnyObject {
     func didChangedProfile()
+    func tappedLogOut()
 }
 
 class ProfileViewController: UIViewController {
@@ -83,16 +84,15 @@ class ProfileViewController: UIViewController {
                 
                 if self.hasChangedImage {
                     
-                    ImageService.uploadImage(image: self.profileImageView.image,dic: dic)
+                    ImageService.uploadImage(image: self.profileImageView.image,dic: dic) {}
                
                 } else {
                 
-                UserService.updateUser(dic: dic as [String : Any]) {
-                    print("成功しました")
-                }
+                UserService.updateUser(dic: dic as [String : Any]) { print("成功したよ") }
                    
                 }
                 self.delegate?.didChangedProfile()
+                
             }.disposed(by: disposeBag)
         
         profileEditButton.rx.tap
@@ -108,27 +108,15 @@ class ProfileViewController: UIViewController {
         logoutButton.rx.tap
             .asDriver()
             .drive { [ weak self ] _ in
-                self?.logOut()
+                self?.dismiss(animated: true,completion: {
+                    self?.delegate?.tappedLogOut()
+                })
+               
             }.disposed(by: disposeBag)
 
     }
     
-      func logOut() {
-         
-//         do {
-//             try Auth.auth().signOut()
-//             let registerViewController = RegisterViewController()
-//             let naVRVC = UINavigationController(rootViewController: registerViewController)
-//             naVRVC.modalPresentationStyle = .fullScreen
-//             self.present(naVRVC, animated: true)
-//
-//         } catch {
-//             print(error.localizedDescription)
-//         }
-         
-        
-         
-     }
+
     
     private func setupLayout() {
         view.backgroundColor = .white
@@ -224,9 +212,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
           guard let selectedImage = info[.editedImage] as? UIImage else { return }
           profileImageView.image = selectedImage.withRenderingMode(.alwaysOriginal)
           profileImageView.contentMode = .scaleAspectFill
-          profileImageView.layer.cornerRadius = 90
-          
-          profileImageView.layer.masksToBounds = true
           self.hasChangedImage = true
           self.dismiss(animated: true)
       }

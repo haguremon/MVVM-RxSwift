@@ -10,8 +10,8 @@ import UIKit
 class CardInfoLabel: UILabel {
    //二つのイニシャライザーやるのは初めてかも便利
     // nopeとgoodのラベル
-    init(frame: CGRect, labelText: String, labelColor: UIColor) {
-        super.init(frame: frame)
+    init(labelText: String, labelColor: UIColor) {
+        super.init(frame: .zero)
         
         font = .boldSystemFont(ofSize: 45)
         text = labelText
@@ -32,11 +32,10 @@ class CardInfoLabel: UILabel {
     
     
     // その他のtextColorが白のラベル
-    init(frame: CGRect, labelText: String, labelFont: UIFont) {
-        super.init(frame: frame)
+    init(labelFont: UIFont) {
+        super.init(frame: .zero)
         font = labelFont
         textColor = .white
-        text = labelText
     }
 
 }

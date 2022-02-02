@@ -11,7 +11,7 @@ class ProfileImageVIew: UIImageView {
     
     init(){
         super.init(frame: .zero)
-        image = UIImage(named: "image")
+        backgroundColor = .gray
         contentMode = .scaleAspectFill
         layer.cornerRadius = 90
     }

@@ -16,16 +16,16 @@ class CardView: UIView {
     // MARK: UIViews //めっちゃスッキリしてる使える
                let cardImageView = CardImageView(frame: .zero)
        private let infoButton = UIButton(type: .system).createCardInfoButton()
-               let nameLabel = CardInfoLabel(frame: .zero, labelText: "", labelFont: .systemFont(ofSize: 40, weight: .heavy))
-       private var residenceLabel = CardInfoLabel(frame: .zero, labelText: "日本、東京", labelFont: .systemFont(ofSize: 20, weight: .regular))
-       private var hobbyLabel = CardInfoLabel(frame: .zero, labelText: "ゲーム", labelFont: .systemFont(ofSize: 25, weight: .regular))
-       private let introductionLabel = CardInfoLabel(frame: .zero, labelText: "ゲーム大好きです", labelFont: .systemFont(ofSize: 25, weight: .regular))
-       private let goodLabel = CardInfoLabel(frame: .zero, labelText: "GOOD", labelColor: .rgb(red: 137, green: 223, blue: 86))
-       private let nopeLabel = CardInfoLabel(frame: .zero, labelText: "NOPE", labelColor: .rgb(red: 225, green: 80, blue: 80))
+       private let nameLabel = CardInfoLabel(labelFont: .systemFont(ofSize: 40, weight: .heavy))
+       private var residenceLabel = CardInfoLabel(labelFont: .systemFont(ofSize: 20, weight: .regular))
+       private var hobbyLabel = CardInfoLabel(labelFont: .systemFont(ofSize: 25, weight: .regular))
+       private let introductionLabel = CardInfoLabel(labelFont: .systemFont(ofSize: 25, weight: .regular))
+       private let goodLabel = CardInfoLabel(labelText: "GOOD", labelColor: .rgb(red: 137, green: 223, blue: 86))
+       private let nopeLabel = CardInfoLabel(labelText: "NOPE", labelColor: .rgb(red: 225, green: 80, blue: 80))
        
     init(user: User) {
          super.init(frame: .zero)
-                
+        
         setupLayout(user: user)
         setupGradietntLayer()
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panCardView))
@@ -82,11 +82,11 @@ class CardView: UIView {
     private func handlePanEnded(view: UIView, translation: CGPoint) {
         //NOPE
         if translation.x <= -120 {
-            self.removeCardViewAnimation(view: view, x: -600)
+            self.removeCardViewAnimation(x: -600)
         //GOOD
         } else if translation.x >= 120 {
             
-            self.removeCardViewAnimation(view: view, x: 600)
+            self.removeCardViewAnimation(x: 600)
          //その他
         } else {
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.7, options: []) {
@@ -118,8 +118,11 @@ class CardView: UIView {
         nameLabel.anchor(bottom: baseStackView.topAnchor, left: cardImageView.leftAnchor, bottomPadding: 10, leftPadding: 20)
         goodLabel.anchor(top: cardImageView.topAnchor, left: cardImageView.leftAnchor, width: 140, height: 55, topPadding: 25, leftPadding: 20)
         nopeLabel.anchor(top: cardImageView.topAnchor, right: cardImageView.rightAnchor, width: 140, height: 55, topPadding: 25, rightPadding: 20)
+        
         nameLabel.text = user.name
-        introductionLabel.text = user.email
+        introductionLabel.text = user.introduction
+        hobbyLabel.text = user.hobby
+        residenceLabel.text = user.residence
         cardImageView.sd_setImage(with: URL(string: user.profileImageURL), completed: nil)
         
     }

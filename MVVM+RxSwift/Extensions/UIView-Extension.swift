@@ -64,15 +64,22 @@ extension UIView {
 }
 //MARK: - animation
 extension UIView {
-    func removeCardViewAnimation(view: UIView, x: CGFloat) {
+    
+    func removeCardViewAnimation(x: CGFloat, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.7, options: []) {
-            let degree: CGFloat = x / 20
+            
+            let degree: CGFloat = x / 40
             let angle = degree * .pi / 180
+            
             let rotateTranslation = CGAffineTransform(rotationAngle: angle)
-            view.transform = rotateTranslation.translatedBy(x: x, y: 100)//消える座標かな？
+            self.transform = rotateTranslation.translatedBy(x: x, y: 100)
             self.layoutIfNeeded()
+            
         } completion: { _ in
-            self.removeFromSuperview()//動きが終わった後にremoveする
+            self.removeFromSuperview()
+            if let completion = completion {
+                completion()
+            }
         }
     }
     

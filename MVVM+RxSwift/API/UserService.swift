@@ -11,10 +11,7 @@ import FirebaseAuth
 struct UserService {
     
     
-    static func fetchUser(completion: @escaping (User) -> Void) {
-        guard let uid = Auth.auth().currentUser?.uid else {
-            return
-        }
+    static func fetchUser(uid: String,completion: @escaping (User) -> Void) {
         //更新をすぐにできるを使うとgetDocumentsより便利。チャットアプリなどでよく使う
         COLLECTION_USERS.document(uid).addSnapshotListener { snapshot, _ in
 //        COLLECTION_USERS.document(uid).getDocument { snapshot, _ in
@@ -37,7 +34,10 @@ struct UserService {
              let users = documents.map { snapshot in
                  return User(snapshot.data())
              }
-                  completion(users)
+          let filterUsers = users.filter { (user) -> Bool in
+              return user.uid != Auth.auth().currentUser?.uid
+          }
+          completion(filterUsers)
          }
          
      }

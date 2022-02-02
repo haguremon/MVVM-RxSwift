@@ -11,7 +11,7 @@ import UIKit
 // MARK: - イメージをアップロードする
 struct ImageService {
     
-    static func uploadImage(image: UIImage?, dic: [String: Any]) {
+    static func uploadImage(image: UIImage?, dic: [String: Any],completion: @escaping () -> Void) {
         guard let image = image else {
             return
         }
@@ -26,18 +26,21 @@ struct ImageService {
                 print("DEBUG: Failed to upload image \(error.localizedDescription)")
                 return
             }
-        //downloadURLをcompletionで@escaping (String) -> Voidする
+            
             ref.downloadURL { (url, error) in
                 if let error = error {
                     print(error.localizedDescription)
                     return
                 }
                 guard let profileImageURL = url?.absoluteString else { return }
-               var dicWithImage = dic
+                var dicWithImage = dic
                 dicWithImage["profileImageURL"] = profileImageURL
                 UserService.updateUser(dic: dicWithImage) {
                     print("成功しました")
                 }
+                completion()
+                
+                
             }
         }
     }
